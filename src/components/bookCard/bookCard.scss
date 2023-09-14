@@ -1,0 +1,10 @@
+.bookCard {
+    width: 172px;
+    height: 239px;
+    margin-right: 60px;
+    background: red;
+    margin-bottom: 40px;
+    &:nth-child(5n) {
+        margin-right: 0;
+    }
+}
