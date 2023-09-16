@@ -1,6 +1,6 @@
 class GoogleService {
   _body = "https://www.googleapis.com/books/v1/volumes?";
-  _apiKey = "AIzaSyAovvO72JN7pb7P2HPla7HJa9LyPtf_LBs";
+  _apiKey = "AIzaSyCrH_RKBJ0_Y1jR6ZskkBDVs--yWCOsI9g";
 
   getResourse = async (url) => {
     let res = await fetch(url);
@@ -22,8 +22,16 @@ class GoogleService {
 
   _transformBooks = (book) => {
     return {
-      title: book.volumeInfo.title,
-      descr: book.volumeInfo.description,
+      title: book.volumeInfo.title
+        ? book.volumeInfo.title.length > 14
+          ? book.volumeInfo.title.slice(0, 14) + "..."
+          : book.volumeInfo.title
+        : null,
+      descr: book.volumeInfo.description
+        ? book.volumeInfo.description.length > 40
+          ? book.volumeInfo.description.slice(0, 40) + "..."
+          : book.volumeInfo.description
+        : "Нет описания",
       image: book.volumeInfo.imageLinks.thumbnail,
     };
   };
