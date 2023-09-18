@@ -4,7 +4,7 @@ import GoogleService from "../../services/GoogleService";
 
 import "./search.scss";
 
-function Search({ booksing }) {
+function Search({ booksing, setLoading, setError }) {
   const googleService = new GoogleService();
 
   const [text, setText] = useState("");
@@ -22,15 +22,21 @@ function Search({ booksing }) {
   };
 
   function searchInput() {
+    setLoading(true);
     googleService.getSearchBooks(text).then(onBooksLoaded).catch(onError);
+    
   }
 
   const onBooksLoaded = (newBooks) => {
+    setLoading(false);
+    setError(false)
     booksing(newBooks);
   };
 
-  const onError = () => {
-    console.log("Массив пуст");
+  const onError = (e) => {
+    setLoading(false);
+    setError(true);
+    console.log(e);
   };
 
   return (

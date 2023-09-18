@@ -14,9 +14,8 @@ class GoogleService {
 
   getSearchBooks = async (text) => {
     const res = await this.getResourse(
-      `${this._body}q=${text}&key=${this._apiKey}`
+      `${this._body}q=${text.replace(/ /g, '+')}&key=${this._apiKey}`
     );
-
     return res.items.map(this._transformBooks);
   };
 
