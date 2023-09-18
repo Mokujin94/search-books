@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="title">Searching books</h1>
-      <Search booksing={createBooks} setLoading={setLoading} setError={setError} />
+      <Search booksing={createBooks} setLoading={setLoading} setError={setError} setBooks={setBooks} />
       <div className="books__wrapper">
         {wasError}
         {onLoading}
