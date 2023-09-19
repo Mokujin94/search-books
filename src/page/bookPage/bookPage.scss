@@ -36,4 +36,18 @@
   &__img {
     width: 100%;
   }
+  &__author {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  &__title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  &__descr {
+    font-size: 16px;
+    line-height: 25px;
+    text-align: justify;
+  }
 }

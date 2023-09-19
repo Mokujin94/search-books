@@ -14,11 +14,13 @@ function Search({
   setStartTotal,
 }) {
   const googleService = new GoogleService();
+  
 
   useEffect(() => {
     if (!text) {
       return;
     }
+    setLoading(true)
     searchInput();
   }, [text]);
 

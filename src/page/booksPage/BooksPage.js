@@ -4,6 +4,7 @@ import Search from "../../components/search/Search";
 import BookSkeleton from "../../components/bookSkeleton/BookSkeleton";
 import GoogleService from "../../services/GoogleService";
 import { Link } from "react-router-dom";
+import { ClipLoader } from 'react-spinners';
 
 function BooksPage() {
   const googleService = new GoogleService();
@@ -11,6 +12,7 @@ function BooksPage() {
   const [text, setText] = useState("");
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [onMoreLoading, setOnMoreLoading] = useState(false);
   const [error, setError] = useState(false);
   const [startTotal, setStartTotal] = useState(10);
   const [maxTotal, setMaxTotal] = useState(10);
@@ -20,6 +22,7 @@ function BooksPage() {
   };
 
   const moreBooks = (newBooks) => {
+    setOnMoreLoading(false)
     setBooks((books) => [...books, ...newBooks]);
   };
   const skeletonArr = [
@@ -37,6 +40,7 @@ function BooksPage() {
 
   const moreBooksLoaded = () => {
     setStartTotal((startTotal) => startTotal + 10);
+    setOnMoreLoading(true)
     googleService
       .getSearchBooks(text, startTotal, maxTotal)
       .then((res) => moreBooks(res))
@@ -45,6 +49,7 @@ function BooksPage() {
 
   const onError = (e) => {
     setBooks([]);
+    setOnMoreLoading(false)
     setLoading(false);
     setError(true);
     console.log(e);
@@ -83,14 +88,19 @@ function BooksPage() {
         text={text}
         setStartTotal={setStartTotal}
       />
+
       <div className="books__wrapper">
         {wasError}
         {text ? onLoading : null}
         {text ? content : null}
       </div>
       {text && !loading && !error ? (
-        <button className="loadmore" onClick={moreBooksLoaded}>
-          more
+        <button className="loadmore" onClick={moreBooksLoaded} disabled={onMoreLoading ? true : false}>
+          {onMoreLoading ?       <ClipLoader
+        color="#36d7b7"
+        size={20}
+      /> : 'more'}
+          
         </button>
       ) : null}
     </div>

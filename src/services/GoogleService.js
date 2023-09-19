@@ -1,10 +1,10 @@
 class GoogleService {
   _body = "https://www.googleapis.com/books/v1/volumes?";
-  _apiKey = "AIzaSyC2PWvHPXiwWuRGDncz5HccwQHCBptBxr4";
+  _apiKey = "AIzaSyCrH_RKBJ0_Y1jR6ZskkBDVs--yWCOsI9g";
 
   getResourse = async (url) => {
     let res = await fetch(url);
-    // console.log(res);
+    console.log(res);
     if (!res.ok) {
       throw new Error(`status: ${res.status}, fetch: ${url}`);
     }
@@ -23,6 +23,7 @@ class GoogleService {
     const res = await this.getResourse(
       `https://www.googleapis.com/books/v1/volumes/${id}`
     );
+    console.log(this._transformBook(res));
     return this._transformBook(res);
   };
 

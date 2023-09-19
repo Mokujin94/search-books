@@ -25,6 +25,7 @@ function BookPage() {
             <img src={book.avatar} alt="avatar" className="bookPage__img" />
           </div>
           <div className="bookPage__text">
+            <h1 className="bookPage__author">{book.author}</h1>
             <h1 className="bookPage__title">{book.title}</h1>
             <p className="bookPage__descr">{book.descr}</p>
           </div>
