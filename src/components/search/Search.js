@@ -4,13 +4,18 @@ import GoogleService from "../../services/GoogleService";
 
 import "./search.scss";
 
-function Search({ booksing, setLoading, setError, setBooks }) {
+function Search({
+  booksing,
+  setLoading,
+  setError,
+  setBooks,
+  setText,
+  text,
+  setStartTotal,
+}) {
   const googleService = new GoogleService();
 
-  const [text, setText] = useState("");
-
   useEffect(() => {
-    setBooks([])
     if (!text) {
       return;
     }
@@ -23,19 +28,21 @@ function Search({ booksing, setLoading, setError, setBooks }) {
 
   function searchInput() {
     setLoading(true);
-    googleService.getSearchBooks(text, 40, 40).then((res) => onBooksLoaded(res)).catch(onError);
-    
+    setStartTotal(10);
+    googleService
+      .getSearchBooks(text, 0, 10)
+      .then(onBooksLoaded)
+      .catch(onError);
   }
 
   const onBooksLoaded = (newBooks) => {
-    setBooks([])
     setLoading(false);
-    setError(false)
+    setError(false);
     booksing(newBooks);
   };
 
   const onError = (e) => {
-    setBooks([])
+    setBooks([]);
     setLoading(false);
     setError(true);
     console.log(e);
